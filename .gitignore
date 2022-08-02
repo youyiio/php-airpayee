@@ -1,0 +1,19 @@
+# all project
+.idea
+composer.lock
+*.log
+.svn
+
+# php & thinkphp
+vendor/*
+thinkphp
+
+# nodejs
+package.json
+package-lock.json
+node_modules
+
+# my project
+composer.lock
+examples/log
+examples/html

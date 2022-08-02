@@ -1,0 +1,30 @@
+1.修改lib/config.php的里面商户配置: 
+  mch_no, secret_key, notify_url, return_url
+
+$config = array (
+	//商户编号
+	'mch_no' => "",
+
+	//商户密钥
+	'secret_key' => "",
+
+	//异步通知地址
+	'notify_url' => "",
+
+	//同步跳转
+	'return_url' => "",
+
+	//编码格式，定值无需修改
+	'charset' => "UTF-8",
+
+     //移动wap支付，定值无需修改
+	'wap_pay_url' => "https://pay.youyi.io/wap/gateway",
+
+	//web api接口地址，定值无需修改
+	'web_api_url' => "https://pay.youyi.io/web_api/gateway",
+
+);
+
+2.webapi为接口调用，包含订单查询，退款和撤订等；
+
+3.wappay为移动网页支付，要求支付权限开通有微信的公众号支付或支付宝的手机网页支付；
