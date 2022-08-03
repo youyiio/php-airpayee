@@ -75,8 +75,7 @@ class PayService {
         $this->return_url = $merge_config['return_url'];
         $this->notify_url = $merge_config['notify_url'];
         $this->charset = $merge_config['charset'];
-        $this->unify_gateway_url = $merge_config['wap_pay_url'];
-
+        $this->unify_gateway_url = $merge_config['unify_gateway_url'];
         if (empty($this->mch_no) || trim($this->mch_no)=="") {
             throw new \Exception("mch_no should not be NULL!");
         }

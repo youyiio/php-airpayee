@@ -7,18 +7,21 @@
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  */
 
-header("Content-type: text/html; charset=utf-8");
+$baseDir = '../../';
+require($baseDir . 'vendor/autoload.php');
+
 
 use beyong\airpayee\PayService;
 
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
 
+header("Content-type: text/html; charset=utf-8");
 
 if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
     $mchOrderId = $_POST['mch_order_id'];
     $body = $_POST['body'];
-    $fee = $_POST['fee'];
+    $amount = $_POST['amount'];
     $attach = $_POST['attach'];
     $payChannel = $_POST['pay_channel'];
     $returnUrl = $_POST['return_url'];
@@ -27,7 +30,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
     $payService = new PayService($config);
 
-    $payService->webPay($mchOrderId, $body, $fee, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    $payService->webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
 
     return ;
 }
@@ -67,7 +70,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
                 <label class="weui-label">总价格</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" type="number" placeholder="总价格" name="fee" value="1">
+                <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
             </div>
         </div>
         <div class="weui-cell">
