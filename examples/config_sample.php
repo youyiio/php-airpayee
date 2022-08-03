@@ -16,11 +16,5 @@ $config = array (
 
 	//编码格式，定值无需修改
 	'charset' => "UTF-8",
-
-	//移动wap支付，定值无需修改
-	'wap_pay_url' => "http://www.airpayee.com/gate/wap", //http://www.airpayee.com/gate/wap
-
-	//web api接口地址，定值无需修改
-	'web_api_url' => "http://www.airpayee.com/gate/web", //http://www.airpayee.com/gate/web
 	
 );

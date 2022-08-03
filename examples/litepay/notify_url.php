@@ -1,8 +1,8 @@
 <?php
 /* *
- * 功能：移动wap支付页面跳转同步通知页面
+ * 功能：聚合支付成功后，异步通知页面
  * 版本：1.5
- * 修改日期：2020-5-05
+ * 修改日期：2020-9-25
  * 说明：
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
 
@@ -17,8 +17,7 @@ use beyong\airpayee\PayService;
 
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
 
-
-$params = $_GET;
+$params = $_POST;
 
 $payService = new PayService($config);
 
@@ -37,7 +36,7 @@ if ($result) {
     $mch_order_id =  htmlspecialchars($params['mch_order_id']);
     //微信或支付宝的交易号，支付通道交易凭证号
     $trade_order_id = htmlspecialchars($params['trade_order_id']);
-    //壹收银交易号
+    //AirPayee交易号
     $our_order_id = htmlspecialchars($params['our_order_id']);
 
     if ($is_success == 'true') {
@@ -48,9 +47,7 @@ if ($result) {
 
 
 
-
-
-    echo "验证成功<br /> 商户订单: $mch_order_id; 壹收银订单号：$our_order_id; 支付通道交易凭证号：$trade_order_id" ;
+    echo "验证成功<br /> 商户订单: $mch_order_id; AirPayee订单号：$our_order_id; 支付通道交易凭证号：$trade_order_id" ;
 
     //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 

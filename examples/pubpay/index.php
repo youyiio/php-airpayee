@@ -1,6 +1,6 @@
 <?php
 /* *
- * 功能：壹收银移动Wap网站支付接口接口调试入口页面
+ * 功能：AirPayee移动Wap网站支付接口接口调试入口页面
  * 版本：1.0
  * 修改日期：2017-05-05
  * 说明：
@@ -27,7 +27,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
     $payService = new PayService($config);
 
-    $payService->wapPay($mchOrderId, $body, $fee, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    $payService->pubPay($mchOrderId, $body, $fee, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
 
     return ;
 }

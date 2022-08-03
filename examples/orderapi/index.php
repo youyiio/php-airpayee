@@ -1,16 +1,17 @@
 <?php
 /* *
- * 功能：壹收银移动Wap网站支付接口接口调试入口页面
+ * 功能：AirPayee订单操作接口接口调试入口页面
  * 版本：1.0
- * 修改日期：2017-05-05
+ * 修改日期：2022-05-05
  * 说明：
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  */
 
 header("Content-type: text/html; charset=utf-8");
 
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../lib/config.php';
-require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../lib/PayService.php';
+use beyong\airpayee\PayService;
+
+require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
 
 //初始化支付服务类
 $payService = new PayService($config);
@@ -20,7 +21,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
     $method = $_POST['method'];
 
     switch ($method) {
-        case 'shouqian.web.prepareorder':
+        case 'airpayee.order.prepareorder':
             $mchOrderId = $_POST['mch_order_id'];
             $body = $_POST['body'];
             $fee = $_POST['fee'];
@@ -38,7 +39,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             }
 
             break;
-        case 'shouqian.web.scanpay':
+        case 'airpayee.order.scanpay':
             $body = $_POST['body'];
             $fee = $_POST['fee'];
             $attach = $_POST['attach'];
@@ -47,13 +48,13 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 
             echo json_encode($result);
             break;
-        case 'shouqian.web.query':
+        case 'airpayee.order.query':
             $ourOrderId = $_POST['our_order_id'];
             $result = $payService->query($ourOrderId);
 
             echo json_encode($result);
             break;
-        case 'shouqian.web.refund':
+        case 'airpayee.order.refund':
             $ourOrderId = $_POST['our_order_id'];
             $fee = $_POST['fee'];
             $remark = $_POST['remark'];
@@ -61,13 +62,13 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 
             echo json_encode($result);
             break;
-        case 'shouqian.web.cancel':
+        case 'airpayee.order.cancel':
             $ourOrderId = $_POST['our_order_id'];
             $result = $payService->cancel($ourOrderId);
 
             echo json_encode($result);
             break;
-        case 'shouqian.web.*':
+        case 'airpayee.order.*':
             break;
         default:
             break;
@@ -177,7 +178,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
     </div>
 
     <div class="weui-btn-area">
-        <input type="hidden" name="method" value="shouqian.web.prepareorder">
+        <input type="hidden" name="method" value="airpayee.order.prepareorder">
         <a class="weui-btn weui-btn_primary" href="javascript:" id="btnPrepareOrder">预下单</a>
     </div>
     </form>
@@ -193,7 +194,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
         </div>
     </div>
     <div class="weui-btn-area">
-        <input type="hidden" name="method" value="shouqian.web.scanpay">
+        <input type="hidden" name="method" value="airpayee.order.scanpay">
         <a class="weui-btn weui-btn_primary" href="javascript:" id="btnScanPay">扫码收款</a>
     </div>
     </form>
@@ -209,7 +210,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
         </div>
     </div>
     <div class="weui-btn-area">
-        <input type="hidden" name="method" value="shouqian.web.query">
+        <input type="hidden" name="method" value="airpayee.order.query">
         <a class="weui-btn weui-btn_primary" href="javascript:" id="btnQuery">查询订单</a>
     </div>
     </form>
@@ -237,7 +238,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             </div>
         </div>
         <div class="weui-btn-area">
-            <input type="hidden" name="method" value="shouqian.web.refund">
+            <input type="hidden" name="method" value="airpayee.order.refund">
             <a class="weui-btn weui-btn_primary" href="javascript:" id="btnRefund">退款</a>
         </div>
     </form>
@@ -253,7 +254,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             </div>
         </div>
         <div class="weui-btn-area">
-            <input type="hidden" name="method" value="shouqian.web.cancel">
+            <input type="hidden" name="method" value="airpayee.order.cancel">
             <a class="weui-btn weui-btn_primary" href="javascript:" id="btnCancel">撤单</a>
         </div>
     </form>
