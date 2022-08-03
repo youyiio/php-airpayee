@@ -37,7 +37,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>移动wap支付sdk样例</title>
+    <title>公众号/生活号支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- 引入jquery-weui -->
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
