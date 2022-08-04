@@ -24,7 +24,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
         case 'airpayee.order.prepareorder':
             $mchOrderId = $_POST['mch_order_id'];
             $body = $_POST['body'];
-            $fee = $_POST['fee'];
+            $amount = $_POST['amount'];
             $attach = $_POST['attach'];
             $payChannel = $_POST['pay_channel'];
             $payProduct = $_POST['pay_product'];
@@ -32,7 +32,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             $notifyUrl = $_POST['notify_url'];
             $openId = $_POST['open_id'];
             try {
-                $result = $payService->prepareOrder($mchOrderId, $body, $fee, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
+                $result = $payService->prepareOrder($mchOrderId, $body, $amount, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
                 echo json_encode($result);
             } catch(Exception $e) {
                 echo json_encode(['is_success' => false, 'error_message' => $e->getMessage()]);
@@ -41,10 +41,10 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             break;
         case 'airpayee.order.scanpay':
             $body = $_POST['body'];
-            $fee = $_POST['fee'];
+            $amount = $_POST['amount'];
             $attach = $_POST['attach'];
             $authCode = $_POST['auth_code'];
-            $result = $payService->scanPay($body, $fee, $attach, $authCode);
+            $result = $payService->scanPay($body, $amount, $attach, $authCode);
 
             echo json_encode($result);
             break;
@@ -56,9 +56,9 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             break;
         case 'airpayee.order.refund':
             $ourOrderId = $_POST['our_order_id'];
-            $fee = $_POST['fee'];
+            $amount = $_POST['amount'];
             $remark = $_POST['remark'];
-            $result = $payService->refund($ourOrderId, $fee, $remark);
+            $result = $payService->refund($ourOrderId, $amount, $remark);
 
             echo json_encode($result);
             break;
@@ -114,7 +114,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 <label class="weui-label">总价格</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" type="number" placeholder="总价格" name="fee" value="1">
+                <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
             </div>
         </div>
         <div class="weui-cell">
@@ -227,7 +227,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">退款金额</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text"  placeholder="单位分" name="fee" value="">
+                    <input class="weui-input" type="text"  placeholder="单位分" name="amount" value="">
                 </div>
             </div>
             <div class="weui-cell">
@@ -296,7 +296,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
           var params1 = $("#form1").serializeObject();
           var params = $("#form2").serializeObject();
           params['body'] = params1['body'];
-          params['fee'] = params1['fee'];
+          params['amount'] = params1['amount'];
           params['attach'] = params1['attach'];
           $.post('./index.php', params, function(data) {
               var result = JSON.parse(data);

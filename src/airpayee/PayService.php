@@ -45,7 +45,7 @@ class PayService {
     public static $apppay_method = "airpayee.pay.apppay";
 
     //web支付method，固定值
-    public static $webpay_method = "airpayee.pay.methodpay";
+    public static $webpay_method = "airpayee.pay.webpay";
 
     //公众号/生活号支付method，固定值
     public static $pubpay_method = "airpayee.pay.pubpay";
@@ -193,7 +193,7 @@ class PayService {
     function webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl)
     {
         if (is_int($amount)) {
-            $fee = intval($amount);
+            $amount = intval($amount);
         }
         $params = [
             'method' => PayService::$webpay_method,
@@ -207,7 +207,7 @@ class PayService {
             'pay_channel' => $payChannel,
             'pay_product' => 'web',
             'body' => $body,
-            'amount' => $fee,
+            'amount' => $amount,
             'attach' => $attach,
             'return_url' => $returnUrl,
             'notify_url' => $notifyUrl,
