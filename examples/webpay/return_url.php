@@ -11,11 +11,14 @@
  * 可放入HTML等美化页面的代码、商户业务逻辑程序代码
  */
 
-header("Content-type: text/html; charset=utf-8");
+$baseDir = '../../';
+require($baseDir . 'vendor/autoload.php');
 
 use beyong\airpayee\PayService;
 
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
+
+header("Content-type: text/html; charset=utf-8");
 
 
 $params = $_GET;
