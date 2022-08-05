@@ -66,6 +66,8 @@ class PayService {
     public static $refundorder_method = "airpayee.order.cancel";
 
 
+    public static $pay_products = ["scan", "web", "app", "pub", "lite", "h5", "qrcode"];
+
     //http请求类
     private $http;
 
@@ -389,7 +391,7 @@ class PayService {
         if (!in_array($payChannel, [PayService::PAY_CHANNEL_WXPAY, PayService::PAY_CHANNEL_ALIPAY])) {
             throw new \Exception('pay channel参数错误');
         }
-        if (!in_array($payProduct, ['web', 'h5', 'app', 'pub', 'lite', 'scan'])) {
+        if (!in_array($payProduct, PayService::$pay_products)) {
             throw new \Exception('pay product参数错误');
         }
 
