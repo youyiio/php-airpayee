@@ -9,12 +9,12 @@
 
 header("Content-type: text/html; charset=utf-8");
 
-use beyong\airpayee\PayService;
+use beyong\airpayee\PaySdk;
 
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
 
 //初始化支付服务类
-$payService = new PayService($config);
+$PaySdk = new PaySdk($config);
 
 
 if (isset($_POST['method']) && !empty($_POST['method'])) {
@@ -32,7 +32,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             $notifyUrl = $_POST['notify_url'];
             $openId = $_POST['open_id'];
             try {
-                $result = $payService->prepareOrder($mchOrderId, $body, $amount, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
+                $result = $PaySdk->prepareOrder($mchOrderId, $body, $amount, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
                 echo json_encode($result);
             } catch(Exception $e) {
                 echo json_encode(['is_success' => false, 'error_message' => $e->getMessage()]);
@@ -44,13 +44,13 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             $amount = $_POST['amount'];
             $attach = $_POST['attach'];
             $authCode = $_POST['auth_code'];
-            $result = $payService->scanPay($body, $amount, $attach, $authCode);
+            $result = $PaySdk->scanPay($body, $amount, $attach, $authCode);
 
             echo json_encode($result);
             break;
         case 'airpayee.order.query':
             $ourOrderId = $_POST['our_order_id'];
-            $result = $payService->query($ourOrderId);
+            $result = $PaySdk->query($ourOrderId);
 
             echo json_encode($result);
             break;
@@ -58,13 +58,13 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             $ourOrderId = $_POST['our_order_id'];
             $amount = $_POST['amount'];
             $remark = $_POST['remark'];
-            $result = $payService->refund($ourOrderId, $amount, $remark);
+            $result = $PaySdk->refund($ourOrderId, $amount, $remark);
 
             echo json_encode($result);
             break;
         case 'airpayee.order.cancel':
             $ourOrderId = $_POST['our_order_id'];
-            $result = $payService->cancel($ourOrderId);
+            $result = $PaySdk->cancel($ourOrderId);
 
             echo json_encode($result);
             break;

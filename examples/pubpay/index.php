@@ -10,7 +10,7 @@
 $baseDir = '../../';
 require($baseDir . 'vendor/autoload.php');
 
-use beyong\airpayee\PayService;
+use beyong\airpayee\PaySdk;
 
 header("Content-type: text/html; charset=utf-8");
 
@@ -28,9 +28,9 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
     $notifyUrl = $_POST['notify_url'];
     $openId = $_POST['open_id'];
 
-    $payService = new PayService($config);
+    $PaySdk = new PaySdk($config);
 
-    $payService->pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    $PaySdk->pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
 
     return ;
 }

@@ -12,7 +12,7 @@ namespace beyong\airpayee;
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./Http.php';
 
-class PayService {
+class PaySdk {
 
     const PAY_CHANNEL_WXPAY   = 1;
     const PAY_CHANNEL_ALIPAY  = 2;
@@ -106,7 +106,7 @@ class PayService {
     public function scanPay($body, $amount, $attach, $authCode)
     {
         $params = [
-            'method' => PayService::$scanpay_method,
+            'method' => PaySdk::$scanpay_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -125,8 +125,7 @@ class PayService {
 
         $response = $this->http->post($this->unify_gateway_url, $params);
         $result = json_decode($response, true);
-        //var_dump($result);
-
+     
         return $result;
     }
 
@@ -145,14 +144,14 @@ class PayService {
      */
     function pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId = '')
     {
-        if ($payChannel == PayService::PAY_CHANNEL_WXPAY && empty($openId)) {
+        if ($payChannel == PaySdk::PAY_CHANNEL_WXPAY && empty($openId)) {
             throw new \Exception('pay channel, open id参数错误');
         }
         if (is_int($amount)) {
             $amount = intval($amount);
         }
         $params = [
-            'method' => PayService::$pubpay_method,
+            'method' => PaySdk::$pubpay_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -198,7 +197,7 @@ class PayService {
             $amount = intval($amount);
         }
         $params = [
-            'method' => PayService::$webpay_method,
+            'method' => PaySdk::$webpay_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -238,12 +237,12 @@ class PayService {
     public function apppay($mchOrderId, $body, $amount, $attach , $payChannel, $notifyUrl)
     {
         //1:微信，2:支付宝
-        if (!in_array($payChannel, [PayService::PAY_CHANNEL_WXPAY, PayService::PAY_CHANNEL_ALIPAY])) {
+        if (!in_array($payChannel, [PaySdk::PAY_CHANNEL_WXPAY, PaySdk::PAY_CHANNEL_ALIPAY])) {
             throw new \Exception('pay channel参数错误');
         }
 
         $params = [
-            'method' => PayService::$apppay_method,
+            'method' => PaySdk::$apppay_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -287,16 +286,16 @@ class PayService {
     public function litepay($mchOrderId, $body, $amount, $attach , $payChannel, $notifyUrl, $openId = '')
     {
         //1:微信，2:支付宝
-        if (!in_array($payChannel, [PayService::PAY_CHANNEL_WXPAY, PayService::PAY_CHANNEL_ALIPAY])) {
+        if (!in_array($payChannel, [PaySdk::PAY_CHANNEL_WXPAY, PaySdk::PAY_CHANNEL_ALIPAY])) {
             throw new \Exception('pay channel参数错误');
         }
 
-        if ($payChannel == PayService::PAY_CHANNEL_WXPAY && empty($openId)) {
+        if ($payChannel == PaySdk::PAY_CHANNEL_WXPAY && empty($openId)) {
             throw new \Exception('pay channel, open id参数错误');
         }
 
         $params = [
-            'method' => PayService::$litepay_method,
+            'method' => PaySdk::$litepay_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -340,12 +339,12 @@ class PayService {
     public function h5pay($mchOrderId, $body, $amount, $attach , $payChannel, $notifyUrl)
     {
         //1:微信，2:支付宝
-        if (!in_array($payChannel, [PayService::PAY_CHANNEL_WXPAY, PayService::PAY_CHANNEL_ALIPAY])) {
+        if (!in_array($payChannel, [PaySdk::PAY_CHANNEL_WXPAY, PaySdk::PAY_CHANNEL_ALIPAY])) {
             throw new \Exception('pay channel参数错误');
         }
 
         $params = [
-            'method' => PayService::$prepayorder_method,
+            'method' => PaySdk::$prepayorder_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -388,19 +387,19 @@ class PayService {
     public function prepareOrder($mchOrderId, $body, $amount, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId = '')
     {
         //1:微信，2:支付宝
-        if (!in_array($payChannel, [PayService::PAY_CHANNEL_WXPAY, PayService::PAY_CHANNEL_ALIPAY])) {
+        if (!in_array($payChannel, [PaySdk::PAY_CHANNEL_WXPAY, PaySdk::PAY_CHANNEL_ALIPAY])) {
             throw new \Exception('pay channel参数错误');
         }
-        if (!in_array($payProduct, PayService::$pay_products)) {
+        if (!in_array($payProduct, PaySdk::$pay_products)) {
             throw new \Exception('pay product参数错误');
         }
 
-        if ($payChannel == PayService::PAY_CHANNEL_WXPAY && $payProduct == 'h5' && empty($openId)) {
+        if ($payChannel == PaySdk::PAY_CHANNEL_WXPAY && $payProduct == 'h5' && empty($openId)) {
             throw new \Exception('pay channel, open id参数错误');
         }
 
         $params = [
-            'method' => PayService::$prepayorder_method,
+            'method' => PaySdk::$prepayorder_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -439,7 +438,7 @@ class PayService {
     public function query($ourOrderId)
     {
         $params = [
-            'method' => PayService::$queryorder_method,
+            'method' => PaySdk::$queryorder_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -471,7 +470,7 @@ class PayService {
     function refund($ourOrderId, $amount, $remark = null)
     {
         $params = [
-            'method' => PayService::$refundorder_method,
+            'method' => PaySdk::$refundorder_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',
@@ -505,7 +504,7 @@ class PayService {
     function cancel($ourOrderId)
     {
         $params = [
-            'method' => PayService::$cancelorder_method,
+            'method' => PaySdk::$cancelorder_method,
             'mch_no' => $this->mch_no,
             'request_time' => date('Y-m-d H:i:s', time()),
             'sign' => '',

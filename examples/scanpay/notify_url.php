@@ -13,15 +13,15 @@
 
 header("Content-type: text/html; charset=utf-8");
 
-use beyong\airpayee\PayService;
+use beyong\airpayee\PaySdk;
 
 require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
 
 $params = $_POST;
 
-$payService = new PayService($config);
+$PaySdk = new PaySdk($config);
 
-$result = $payService->check($params);
+$result = $PaySdk->check($params);
 
 //验证成功
 if ($result) {

@@ -14,7 +14,7 @@
 $baseDir = '../../';
 require($baseDir . 'vendor/autoload.php');
 
-use beyong\airpayee\PayService;
+use beyong\airpayee\PaySdk;
 
 require dirname(__FILE__) . DIRECTORY_SEPARATOR . '../config.php';
 
@@ -22,9 +22,9 @@ header("Content-type: text/html; charset=utf-8");
 
 $params = $_POST;
 
-$payService = new PayService($config);
+$PaySdk = new PaySdk($config);
 
-$result = $payService->check($params);
+$result = $PaySdk->check($params);
 
 //验证成功
 if ($result) {

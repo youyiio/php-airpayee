@@ -50,9 +50,6 @@ if ($result) {
     }
 
 
-
-
-
     echo "验证成功<br /> 商户订单: $mch_order_id; AirPayee订单号：$our_order_id; 支付通道交易凭证号：$trade_order_id" ;
 
     //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
