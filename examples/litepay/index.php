@@ -30,7 +30,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
     $PaySdk = new PaySdk($config);
 
-    $PaySdk->pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    $PaySdk->litepay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
 
     return;
 }

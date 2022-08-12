@@ -16,7 +16,7 @@ require($baseDir . 'vendor/autoload.php');
 
 use beyong\airpayee\PaySdk;
 
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
+require dirname( __FILE__ ) . DIRECTORY_SEPARATOR.'../config.php';
 
 header("Content-type: text/html; charset=utf-8");
 

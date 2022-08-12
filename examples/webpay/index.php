@@ -25,11 +25,10 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
     $payChannel = $_POST['pay_channel'];
     $returnUrl = $_POST['return_url'];
     $notifyUrl = $_POST['notify_url'];
-    $openId = $_POST['open_id'];
 
     $PaySdk = new PaySdk($config);
 
-    $PaySdk->webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    $PaySdk->webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl);
 
     return ;
 }
@@ -70,14 +69,6 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
             </div>
             <div class="weui-cell__bd">
                 <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">open id</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="微信公众号支付必须传" name="open_id" value="">
             </div>
         </div>
         <div class="weui-cell">

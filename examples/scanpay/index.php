@@ -115,23 +115,14 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
         </div>
 
         <div class="weui-btn-area">
-            <input type="hidden" name="" value="0">
-            <a class="weui-btn weui-btn_primary" href="javascript:" id="pay">支付</a>
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnPay">支付</a>
         </div>
     </form>
 
     <script type="text/javascript">
         //表单提交操作
-        $('#pay').click(function(e) {
+        $("#btnPay").click(function() {
             $("form").submit();
-            //        var form = $('form');
-            //        var input = form.find('input').serialize();
-            //        console.log(input);
-            //
-            //        input += "&pay_channel=1";
-            //        input += '&request_time=' + encodeURIComponent("2017-07-20 20:00:00");
-            //        console.log(input);
-            //        window.location.href = "{:url(request()->module() . '/wap/index')}" + "?" + input;
         });
     </script>
 </body>

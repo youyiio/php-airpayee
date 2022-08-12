@@ -160,6 +160,7 @@ class PaySdk {
         $bizParams = [
             'mch_order_id' => $mchOrderId,
             'pay_channel' => $payChannel,
+            'pay_product' => 'pub',
             'body' => $body,
             'amount' => $amount,
             'attach' => $attach,
@@ -175,7 +176,6 @@ class PaySdk {
         $params['sign'] = $sign;
 
         $redirect_url = $this->unify_gateway_url . '?' . http_build_query($params);
-
         header('Location: ' . $redirect_url);
     }
 
