@@ -77,10 +77,10 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd">
-                    <label class="weui-label">open id</label>
+                    <label class="weui-label">id</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" placeholder="微信公众号支付必须传" name="open_id" value="">
+                    <input class="weui-input" type="text" placeholder="微信openid/支付宝buyer_id必须传" name="open_id" value="">
                 </div>
             </div>
             <div class="weui-cell">
@@ -137,13 +137,12 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
     <script type="text/javascript">
         //表单提交操作
         $('#btnWxpay').click(function(e) {
-            $("input[name=pay_channel]").val(1);
             var openId = $("input[name=open_id]").val();
             if (openId.length == 0) {
-                alert('微信公众号支付必须传openid');
+                alert('微信公众号支付必须传id');
                 return
             }
-
+            $("input[name=pay_channel]").val(1);
             $("form").submit();
             //        var form = $('form');
             //        var input = form.find('input').serialize();
@@ -155,6 +154,12 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
             //        window.location.href = "{:url(request()->module() . '/wap/index')}" + "?" + input;
         });
         $("#btnAlipay").click(function() {
+            var openId = $("input[name=open_id]").val();
+            if (openId.length == 0) {
+                alert('支付宝生活号支付必须传id');
+                return
+            }
+
             $("input[name=pay_channel]").val(2);
             $("form").submit();
         });
