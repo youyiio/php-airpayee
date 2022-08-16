@@ -28,9 +28,13 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
     $notifyUrl = $_POST['notify_url'];
     $openId = $_POST['open_id'];
 
-    $PaySdk = new PaySdk($config);
+    try {
+        $PaySdk = new PaySdk($config);
 
-    $PaySdk->pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+        $PaySdk->pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId);
+    } catch (\Exception $e) {
+        var_dump($e->getMessage());
+    }    
 
     return;
 }
@@ -80,7 +84,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
                     <label class="weui-label">id</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" placeholder="微信openid/支付宝buyer_id必须传" name="open_id" value="">
+                    <input class="weui-input" type="text" placeholder="需要auth授权获取open_id, 下单时要求微信openid/支付宝buyer_id" name="open_id" value="">
                 </div>
             </div>
             <div class="weui-cell">
@@ -139,8 +143,8 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
         $('#btnWxpay').click(function(e) {
             var openId = $("input[name=open_id]").val();
             if (openId.length == 0) {
-                alert('微信公众号支付必须传id');
-                return
+                // alert('微信公众号支付必须传id');
+                // return
             }
             $("input[name=pay_channel]").val(1);
             $("form").submit();
@@ -156,8 +160,8 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
         $("#btnAlipay").click(function() {
             var openId = $("input[name=open_id]").val();
             if (openId.length == 0) {
-                alert('支付宝生活号支付必须传id');
-                return
+                // alert('支付宝生活号支付必须传id');
+                // return
             }
 
             $("input[name=pay_channel]").val(2);

@@ -77,7 +77,10 @@ class PaySdk {
         $this->return_url = $merge_config['return_url'];
         $this->notify_url = $merge_config['notify_url'];
         $this->charset = $merge_config['charset'];
-        $this->unify_gateway_url = $merge_config['unify_gateway_url'];
+        if (!empty($merge_config['unify_gateway_url'])) {
+            $this->unify_gateway_url = $merge_config['unify_gateway_url'];
+        }
+        
         if (empty($this->mch_no) || trim($this->mch_no)=="") {
             throw new \Exception("mch_no should not be NULL!");
         }
@@ -145,7 +148,7 @@ class PaySdk {
     function pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId = '')
     {
         if ($payChannel == PaySdk::PAY_CHANNEL_WXPAY && empty($openId)) {
-            throw new \Exception('pay channel, open id参数错误');
+            //throw new \Exception('pay channel, open id参数错误');
         }
         if (is_int($amount)) {
             $amount = intval($amount);
