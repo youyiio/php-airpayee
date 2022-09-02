@@ -128,8 +128,7 @@ class PaySdk {
 
         $response = $this->http->post($this->unify_gateway_url, $params);
         $result = json_decode($response, true);
-     
-        return $result;
+        var_dump($result);die();
     }
 
     /**
@@ -179,6 +178,7 @@ class PaySdk {
         $params['sign'] = $sign;
 
         $redirect_url = $this->unify_gateway_url . '?' . http_build_query($params);
+        // var_dump($redirect_url);die();
         header('Location: ' . $redirect_url);
     }
 
@@ -294,7 +294,7 @@ class PaySdk {
         }
 
         if ($payChannel == PaySdk::PAY_CHANNEL_WXPAY && empty($openId)) {
-            throw new \Exception('pay channel, open id参数错误');
+            // throw new \Exception('pay channel, open id参数错误');
         }
 
         $params = [
@@ -321,10 +321,11 @@ class PaySdk {
         $sign = $this->sign_params($params, $this->secret_key);
         $params['sign'] = $sign;
 
-        $response = $this->http->post($this->unify_gateway_url, $params);
-        $result = json_decode($response, true);
+        // $response = $this->http->post($this->unify_gateway_url, $params);
+        // $result = json_decode($response, true);
 
-        return $result;
+        $redirect_url = $this->unify_gateway_url . '?' . http_build_query($params);
+        header('Location: ' . $redirect_url);;
     }
 
     /**

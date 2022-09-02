@@ -41,7 +41,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
 <head>
     <meta charset="UTF-8">
-    <title>公众号/生活号支付sdk样例</title>
+    <title>小程序支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- 引入jquery-weui -->
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
@@ -77,10 +77,10 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd">
-                    <label class="weui-label">open id</label>
+                    <label class="weui-label">id</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" placeholder="微信公众号支付必须传" name="open_id" value="">
+                    <input class="weui-input" type="text" placeholder="需要auth授权获取open_id, 下单时要求微信openid/支付宝buyer_id" name="open_id" value="">
                 </div>
             </div>
             <div class="weui-cell">
@@ -138,12 +138,6 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
         //表单提交操作
         $('#btnWxpay').click(function(e) {
             $("input[name=pay_channel]").val(1);
-            var openId = $("input[name=open_id]").val();
-            if (openId.length == 0) {
-                alert('微信公众号支付必须传openid');
-                return
-            }
-
             $("form").submit();
             //        var form = $('form');
             //        var input = form.find('input').serialize();
