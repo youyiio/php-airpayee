@@ -1,6 +1,6 @@
 <?php
 /* *
- * 功能：AirPayee移动Wap网站支付接口接口调试入口页面
+ * 功能：AirPayee扫码枪支付接口接口调试入口页面
  * 版本：1.0
  * 修改日期：2017-05-05
  * 说明：
@@ -35,7 +35,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
 <head>
     <meta charset="UTF-8">
-    <title>web支付sdk样例</title>
+    <title>扫码支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- 引入jquery-weui -->
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">

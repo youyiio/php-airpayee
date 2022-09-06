@@ -84,7 +84,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>移动wap支付sdk样例</title>
+    <title>订单接口sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- 引入jquery-weui -->
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
