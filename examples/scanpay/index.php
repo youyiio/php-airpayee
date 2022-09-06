@@ -76,7 +76,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
                     <label class="weui-label">付款码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" placeholder="付款码" name="auth_code" value="">
+                    <input class="weui-input" type="text" placeholder="付款码" name="auth_code" value="" autocomplete="off">
                 </div>
             </div>
 
