@@ -19,14 +19,17 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
     <meta charset="UTF-8">
     <title>Airpayee支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- 引入jquery-weui -->
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
-    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+    <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.11/weui.min.css">
+    <link rel="stylesheet" href="./example.css">
 
 </head>
-<body>
+
+<body data-weui-theme="light">
+
+    <div class="page__hd">
+        <h1 class="page__title">Airpayee SDK</h1>
+        <p class="page__desc">支付产品sample</p>
+    </div>
 
     <div class="weui-cells__title">商户信息(注，请与商务联系，https://www.airpayee.com 登录平台获取)</div>
     <div class="weui-cells weui-cells_form">
@@ -41,13 +44,13 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
                 <label class="weui-label">密钥</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="mch_key" value="签名用，只能放后台" disabled>
+                <input class="weui-input" type="text" placeholder="" name="secret_key" value="签名用，只能放后台" disabled>
             </div>
         </div>
     </div>
 
     <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="./scanpay" id="">扫码支付(h5)</a>
+        <a class="weui-btn weui-btn_primary" href="./scanpay" id="">扫码支付</a>
         <a class="weui-btn weui-btn_primary" href="./webpay" id="">网页支付</a>
         <a class="weui-btn weui-btn_primary" href="./pubpay" id="">公众号/生活号支付</a>
         <a class="weui-btn weui-btn_primary" href="./litepay" id="">小程序支付</a>
