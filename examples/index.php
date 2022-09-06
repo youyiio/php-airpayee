@@ -1,6 +1,6 @@
 <?php
 /* *
- * 功能：AirPayee移动Wap网站支付接口接口调试入口页面
+ * 功能：AirPayee支付sdk导航页面
  * 版本：1.0
  * 修改日期：2017-05-05
  * 说明：
@@ -17,7 +17,7 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>聚合支付sdk样例</title>
+    <title>Airpayee支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!-- 引入jquery-weui -->
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
@@ -28,7 +28,7 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
 </head>
 <body>
 
-    <div class="weui-cells__title">商户信息(注，请与商务联系，开通商户获取商户编号和密钥，交流群：)</div>
+    <div class="weui-cells__title">商户信息(注，请与商务联系，https://www.airpayee.com 登录平台获取)</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__hd"><label class="weui-label">商户编号</label></div>
@@ -47,8 +47,13 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
     </div>
 
     <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="./wappay" id="">移动Wap支付(h5)</a>
-        <a class="weui-btn weui-btn_primary" href="./webapi" id="">Web接口</a>
+        <a class="weui-btn weui-btn_primary" href="./scanpay" id="">扫码支付(h5)</a>
+        <a class="weui-btn weui-btn_primary" href="./webpay" id="">网页支付</a>
+        <a class="weui-btn weui-btn_primary" href="./pubpay" id="">公众号/生活号支付</a>
+        <a class="weui-btn weui-btn_primary" href="./litepay" id="">小程序支付</a>
+        <a class="weui-btn weui-btn_primary" href="./h5pay" id="">h5支付</a>
+        <a class="weui-btn weui-btn_primary" href="./apppay" id="">移动应用支付</a>
+        <a class="weui-btn weui-btn_primary" href="./orderapi" id="">订单接口</a>
     </div>
     </form>
 </body>

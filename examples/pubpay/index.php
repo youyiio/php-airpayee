@@ -47,15 +47,18 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
     <meta charset="UTF-8">
     <title>公众号/生活号支付sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- 引入jquery-weui -->
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.11/weui.min.css">
+    <link rel="stylesheet" href="../example.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
-
 </head>
 
-<body>
+<body data-weui-theme="light">
+
+    <div class="page__hd">
+        <h1 class="page__title">Airpayee SDK</h1>
+        <p class="page__desc">公众号/生活号支付</p>
+    </div>
+
     <form action="" method="post">
         <div class="weui-cells__title">表单</div>
         <div class="weui-cells weui-cells_form">

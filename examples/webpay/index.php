@@ -12,7 +12,7 @@ require($baseDir . 'vendor/autoload.php');
 
 use beyong\airpayee\PaySdk;
 
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . '../config.php';
 
 header("Content-type: text/html; charset=utf-8");
 
@@ -30,116 +30,125 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
 
     $PaySdk->webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl);
 
-    return ;
+    return;
 }
 ?>
 
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>web支付sdk样例</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- 引入jquery-weui -->
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <meta name="wechat-enable-text-zoom-em" content="true">
+    <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.11/weui.min.css">
+    <link rel="stylesheet" href="../example.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
-
 </head>
-<body>
+
+<body data-weui-theme="light">
+
+    <div class="page__hd">
+        <h1 class="page__title">Airpayee SDK</h1>
+        <p class="page__desc">网页支付</p>
+    </div>
+
     <form action="" method="post">
-    <div class="weui-cells__title">表单</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">商户订单id</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="商品标题" name="mch_order_id" value="<?php echo time();?>">
+        <div class="weui-cells__title">表单</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">商户订单id</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="商品标题" name="mch_order_id" value="<?php echo time(); ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">商品</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="商品标题" name="body" value="测试商品">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">总价格</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">回跳地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="return_url" value="<?php echo $config['return_url']; ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">通知地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="notify_url" value="<?php echo $config['notify_url']; ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">附加</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="attach" value="backattack">
+                </div>
             </div>
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">商品</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="商品标题" name="body" value="测试商品">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">总价格</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">回跳地址</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="return_url" value="<?php echo $config['return_url']; ?>">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">通知地址</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="notify_url" value="<?php echo $config['notify_url']; ?>">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">附加</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="attach" value="backattack">
-            </div>
-        </div>
-    </div>
 
-    <div class="weui-cells__title">商户信息</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">商户编号</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="商品编号" name="mch_no" value="<?php echo $config['mch_no']; ?>">
+        <div class="weui-cells__title">商户信息</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">商户编号</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="商品编号" name="mch_no" value="<?php echo $config['mch_no']; ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">密钥</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="secret_key" value="签名用，只能放后台" disabled>
+                </div>
             </div>
         </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">密钥</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="secret_key" value="签名用，只能放后台" disabled>
-            </div>
-        </div>
-    </div>
 
-    <div class="weui-btn-area">
-        <input type="hidden" name="pay_channel" value="0">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnWxpay">微信支付</a>
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnAlipay">支付宝支付</a>
-    </div>
+        <div class="weui-btn-area">
+            <input type="hidden" name="pay_channel" value="0">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnWxpay">微信支付</a>
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnAlipay">支付宝支付</a>
+        </div>
     </form>
 
-   <script type="text/javascript">
-    //表单提交操作
-    $('#btnWxpay').click(function(e) {
-        $("input[name=pay_channel]").val(1);
-        $("form").submit();
-//        var form = $('form');
-//        var input = form.find('input').serialize();
-//        console.log(input);
-//
-//        input += "&pay_channel=1";
-//        input += '&request_time=' + encodeURIComponent("2017-07-20 20:00:00");
-//        console.log(input);
-//        window.location.href = "{:url(request()->module() . '/wap/index')}" + "?" + input;
-    });
-       $("#btnAlipay").click(function() {
-           $("input[name=pay_channel]").val(2);
-           $("form").submit();
-       });
+
+
+    <script type="text/javascript">
+        //表单提交操作
+        $('#btnWxpay').click(function(e) {
+            $("input[name=pay_channel]").val(1);
+            $("form").submit();
+            //        var form = $('form');
+            //        var input = form.find('input').serialize();
+            //        console.log(input);
+            //
+            //        input += "&pay_channel=1";
+            //        input += '&request_time=' + encodeURIComponent("2017-07-20 20:00:00");
+            //        console.log(input);
+            //        window.location.href = "{:url(request()->module() . '/wap/index')}" + "?" + input;
+        });
+        $("#btnAlipay").click(function() {
+            $("input[name=pay_channel]").val(2);
+            $("form").submit();
+        });
     </script>
 </body>
+
 </html>

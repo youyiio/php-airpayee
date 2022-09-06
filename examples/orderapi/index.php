@@ -11,7 +11,7 @@ header("Content-type: text/html; charset=utf-8");
 
 use beyong\airpayee\PaySdk;
 
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../config.php';
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . '../config.php';
 
 //初始化支付服务类
 $PaySdk = new PaySdk($config);
@@ -32,9 +32,9 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             $notifyUrl = $_POST['notify_url'];
             $openId = $_POST['open_id'];
             try {
-                $result = $PaySdk->prepareOrder($mchOrderId, $body, $amount, $attach , $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
+                $result = $PaySdk->prepareOrder($mchOrderId, $body, $amount, $attach, $payChannel, $payProduct, $returnUrl, $notifyUrl, $openId);
                 echo json_encode($result);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 echo json_encode(['is_success' => false, 'error_message' => $e->getMessage()]);
             }
 
@@ -82,137 +82,142 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>订单接口sdk样例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- 引入jquery-weui -->
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.11/weui.min.css">
+    <link rel="stylesheet" href="../example.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
-
 </head>
-<body>
-    <form action="" method="post" id="form1">
-    <div class="weui-cells__title">下单信息</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">商户订单id</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="商品标题" name="mch_order_id" value="<?php echo time();?>">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">商品</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="商品标题" name="body" value="测试商品">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">总价格</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">支付渠道</label>
-            </div>
-            <div class="weui-cell__bd">
-                <select class="weui-select" name="pay_channel">
-                    <option value="1">微信支付</option>
-                    <option value="2">支付宝</option>
-                </select>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">open id</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="微信 h5或jssdk支付必须传" name="open_id" value="">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">回跳地址</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="return_url" value="<?php echo $config['return_url']; ?>">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">通知地址</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="notify_url" value="<?php echo $config['notify_url']; ?>">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">附加</label>
-            </div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text" placeholder="" name="attach" value="">
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__hd">
-                <label class="weui-label">支付产品</label>
-            </div>
-            <div class="weui-cell__bd">
-                <select class="weui-select" name="pay_product">
-                    <option value="pc">pc</option>
-                    <option value="h5">h5</option>
-                    <option value="app">app</option>
-                    <option value="jssdk">jssdk</option>
-                    <option value="qrcode">qrcode</option>
-                    <option value="oneqrcode">oneqrcode</option>
-                </select>
-            </div>
-        </div>
+
+<body data-weui-theme="light">
+
+    <div class="page__hd">
+        <h1 class="page__title">Airpayee SDK</h1>
+        <p class="page__desc">订单接口</p>
     </div>
 
-    <div class="weui-btn-area">
-        <input type="hidden" name="method" value="airpayee.order.prepareorder">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnPrepareOrder">预下单</a>
-    </div>
+    <form action="" method="post" id="form1">
+        <div class="weui-cells__title">下单信息</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">商户订单id</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="商品标题" name="mch_order_id" value="<?php echo time(); ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">商品</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="商品标题" name="body" value="测试商品">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">总价格</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">支付渠道</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="pay_channel">
+                        <option value="1">微信支付</option>
+                        <option value="2">支付宝</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">open id</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="微信 h5或jssdk支付必须传" name="open_id" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">回跳地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="return_url" value="<?php echo $config['return_url']; ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">通知地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="notify_url" value="<?php echo $config['notify_url']; ?>">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">附加</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="" name="attach" value="">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">支付产品</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="pay_product">
+                        <option value="pc">pc</option>
+                        <option value="h5">h5</option>
+                        <option value="app">app</option>
+                        <option value="jssdk">jssdk</option>
+                        <option value="qrcode">qrcode</option>
+                        <option value="oneqrcode">oneqrcode</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-btn-area">
+            <input type="hidden" name="method" value="airpayee.order.prepareorder">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnPrepareOrder">预下单</a>
+        </div>
     </form>
 
     <form action="" method="post" id="form2">
-    <div class="weui-cells__title">扫码收款</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">付款码</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="支付宝或微信的付款码" name="auth_code" value="">
+        <div class="weui-cells__title">扫码收款</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">付款码</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="支付宝或微信的付款码" name="auth_code" value="">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="weui-btn-area">
-        <input type="hidden" name="method" value="airpayee.order.scanpay">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnScanPay">扫码收款</a>
-    </div>
+        <div class="weui-btn-area">
+            <input type="hidden" name="method" value="airpayee.order.scanpay">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnScanPay">扫码收款</a>
+        </div>
     </form>
 
     <form action="" method="post" id="form3">
-    <div class="weui-cells__title">查询订单</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label">订单号</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="text"  placeholder="our order id" name="our_order_id" value="">
+        <div class="weui-cells__title">查询订单</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">订单号</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="our order id" name="our_order_id" value="">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="weui-btn-area">
-        <input type="hidden" name="method" value="airpayee.order.query">
-        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnQuery">查询订单</a>
-    </div>
+        <div class="weui-btn-area">
+            <input type="hidden" name="method" value="airpayee.order.query">
+            <a class="weui-btn weui-btn_primary" href="javascript:" id="btnQuery">查询订单</a>
+        </div>
     </form>
 
     <form action="" method="post" id="form4">
@@ -221,19 +226,19 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">订单号</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text"  placeholder="our order id" name="our_order_id" value="">
+                    <input class="weui-input" type="text" placeholder="our order id" name="our_order_id" value="">
                 </div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">退款金额</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text"  placeholder="单位分" name="amount" value="">
+                    <input class="weui-input" type="text" placeholder="单位分" name="amount" value="">
                 </div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">备注</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text"  placeholder="退款备注" name="remark" value="">
+                    <input class="weui-input" type="text" placeholder="退款备注" name="remark" value="">
                 </div>
             </div>
         </div>
@@ -249,7 +254,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">订单号</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text"  placeholder="our order id" name="our_order_id" value="">
+                    <input class="weui-input" type="text" placeholder="our order id" name="our_order_id" value="">
                 </div>
             </div>
         </div>
@@ -259,100 +264,101 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
         </div>
     </form>
 
-   <script type="text/javascript">
-       //serialize 为JSON对象
-       jQuery.prototype.serializeObject=function(){
-           var a,o,h,i,e;
-           a=this.serializeArray();
-           o={};
-           h=o.hasOwnProperty;
-           for(i=0;i<a.length;i++){
-               e=a[i];
-               if(!h.call(o,e.name)){
-                   o[e.name]=e.value;
-               }
-           }
-           return o;
-       };
+    <script type="text/javascript">
+        //serialize 为JSON对象
+        jQuery.prototype.serializeObject = function() {
+            var a, o, h, i, e;
+            a = this.serializeArray();
+            o = {};
+            h = o.hasOwnProperty;
+            for (i = 0; i < a.length; i++) {
+                e = a[i];
+                if (!h.call(o, e.name)) {
+                    o[e.name] = e.value;
+                }
+            }
+            return o;
+        };
 
-       //表单提交操作
-      $('#btnPrepareOrder').click(function(e) {
-          var params = $('#form1').serializeArray();
-          $.post('./index.php', params, function(data) {
-              var result = JSON.parse(data);
-              console.log(result);
-              if (result.is_success) {
-                  $.alert("操作成功");
-                  $("#form3 input[name=our_order_id]").val(result.our_order_id);
-                  $("#form4 input[name=our_order_id]").val(result.our_order_id);
-                  $("#form5 input[name=our_order_id]").val(result.our_order_id);
-              } else {
-                  $.alert("操作失败:" + result.error_code + result.error_message);
-              }
+        //表单提交操作
+        $('#btnPrepareOrder').click(function(e) {
+            var params = $('#form1').serializeArray();
+            $.post('./index.php', params, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                if (result.is_success) {
+                    $.alert("操作成功");
+                    $("#form3 input[name=our_order_id]").val(result.our_order_id);
+                    $("#form4 input[name=our_order_id]").val(result.our_order_id);
+                    $("#form5 input[name=our_order_id]").val(result.our_order_id);
+                } else {
+                    $.alert("操作失败:" + result.error_code + result.error_message);
+                }
 
-          })
-      });
-      $("#btnScanPay").click(function() {
-          var params1 = $("#form1").serializeObject();
-          var params = $("#form2").serializeObject();
-          params['body'] = params1['body'];
-          params['amount'] = params1['amount'];
-          params['attach'] = params1['attach'];
-          $.post('./index.php', params, function(data) {
-              var result = JSON.parse(data);
-              console.log(result);
-              if (result.is_success) {
-                  $.alert("操作成功");
-                  $("#form3 input[name=our_order_id]").val(result.our_order_id);
-                  $("#form4 input[name=our_order_id]").val(result.our_order_id);
-                  $("#form5 input[name=our_order_id]").val(result.our_order_id);
-              } else {
-                  $.alert("操作失败:" + result.error_code + result.error_message);
-              }
+            })
+        });
+        $("#btnScanPay").click(function() {
+            var params1 = $("#form1").serializeObject();
+            var params = $("#form2").serializeObject();
+            params['body'] = params1['body'];
+            params['amount'] = params1['amount'];
+            params['attach'] = params1['attach'];
+            $.post('./index.php', params, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                if (result.is_success) {
+                    $.alert("操作成功");
+                    $("#form3 input[name=our_order_id]").val(result.our_order_id);
+                    $("#form4 input[name=our_order_id]").val(result.our_order_id);
+                    $("#form5 input[name=our_order_id]").val(result.our_order_id);
+                } else {
+                    $.alert("操作失败:" + result.error_code + result.error_message);
+                }
 
-          })
-      });
+            })
+        });
 
-       $("#btnQuery").click(function() {
-           var params = $("#form3").serializeObject();
-           $.post('./index.php', params, function(data) {
-               var result = JSON.parse(data);
-               console.log(result);
-               if (result.is_success) {
-                   $.alert("操作成功:" + data);
-               } else {
-                   $.alert("操作失败:" + result.error_code + result.error_message);
-               }
+        $("#btnQuery").click(function() {
+            var params = $("#form3").serializeObject();
+            $.post('./index.php', params, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                if (result.is_success) {
+                    $.alert("操作成功:" + data);
+                } else {
+                    $.alert("操作失败:" + result.error_code + result.error_message);
+                }
 
-           })
-       });
-       $("#btnRefund").click(function() {
-           var params = $("#form4").serializeObject();
-           $.post('./index.php', params, function(data) {
-               var result = JSON.parse(data);
-               console.log(result);
-               if (result.is_success) {
-                   $.alert("操作成功:" + data);
-               } else {
-                   $.alert("操作失败:" + result.error_code + result.error_message);
-               }
+            })
+        });
+        $("#btnRefund").click(function() {
+            var params = $("#form4").serializeObject();
+            $.post('./index.php', params, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                if (result.is_success) {
+                    $.alert("操作成功:" + data);
+                } else {
+                    $.alert("操作失败:" + result.error_code + result.error_message);
+                }
 
-           })
-       });
+            })
+        });
 
-       $("#btnCancel").click(function() {
-           var params = $("#form5").serializeObject();
-           $.post('./index.php', params, function(data) {
-               var result = JSON.parse(data);
-               console.log(result);
-               if (result.is_success) {
-                   $.alert("操作成功:" + data);
-               } else {
-                   $.alert("操作失败:" + result.error_code + result.error_message);
-               }
+        $("#btnCancel").click(function() {
+            var params = $("#form5").serializeObject();
+            $.post('./index.php', params, function(data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                if (result.is_success) {
+                    $.alert("操作成功:" + data);
+                } else {
+                    $.alert("操作失败:" + result.error_code + result.error_message);
+                }
 
-           })
-       });
+            })
+        });
     </script>
 </body>
+
 </html>
