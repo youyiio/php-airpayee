@@ -76,7 +76,7 @@ if (!empty($_POST['mch_order_id']) && trim($_POST['mch_order_id']) != "") {
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__hd">
-                    <label class="weui-label">总价格</label>
+                    <label class="weui-label">总价格(分)</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input class="weui-input" type="number" placeholder="总价格" name="amount" value="1">
