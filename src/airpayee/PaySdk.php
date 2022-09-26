@@ -71,7 +71,7 @@ class PaySdk {
     //http请求类
     private $http;
 
-    function __construct($merge_config) {
+    function __construct($merge_config=[]) {
         $this->mch_no = $merge_config['mch_no'];
         $this->secret_key = $merge_config['secret_key'];
         $this->return_url = $merge_config['return_url'];
@@ -100,10 +100,10 @@ class PaySdk {
     /**
      * 扫码枪收款
      *
-     * @param [type] $body
-     * @param [type] $amount
-     * @param [type] $attach
-     * @param [type] $authCode
+     * @param string $body
+     * @param integer $amount
+     * @param string $attach
+     * @param string $authCode
      * @return void
      */
     public function scanPay($body, $amount, $attach, $authCode)
@@ -133,16 +133,16 @@ class PaySdk {
 
     /**
      * 公众号/生活号支付，当前支持微信、支付宝内部浏览器；
-     * @param $mchOrderId 商户订单号
-     * @param $body 商品描述
-     * @param $amount 总费用，单位分
-     * @param $attach 附加信息，回调或异步通知时原格式回传
-     * @param $payChannel 支付渠道
-     * @param $returnUrl 回调同步通知地址，公网可访问
-     * @param $notifyUrl 异步通知地址，公网可访问
+     * @param string $mchOrderId 商户订单号
+     * @param string $body 商品描述
+     * @param integer $amount 总费用，单位分
+     * @param string $attach 附加信息，回调或异步通知时原格式回传
+     * @param string $payChannel 支付渠道
+     * @param string $returnUrl 回调同步通知地址，公网可访问
+     * @param string $notifyUrl 异步通知地址，公网可访问
      * @param string $openId  微信或支付宝平台用户id
      * @throws Exception
-     * @return bool
+     * @return boolean
      */
     function pubPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl, $openId = '')
     {
@@ -436,7 +436,7 @@ class PaySdk {
     /**
      * 查询订单
      *
-     * @param [type] $ourOrderId
+     * @param string $ourOrderId
      * @return array
      */
     public function query($ourOrderId)
