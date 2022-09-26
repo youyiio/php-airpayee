@@ -23,34 +23,6 @@ AirPayee SDK PHP版本，包含了SDK开发库和对接案例examples；
         * [引入自动载入文件](#引入自动载入文件)
 
 
-## 第一个AirPayee demo
-
-**ThinkPHP5/6 示例**
-```
-use beyong\airpayee\ECharts;
-use beyong\airpayee\options\YAxis;
-use beyong\airpayee\Option;
-use beyong\airpayee\charts\Bar;
-
-$echarts = ECharts::init("#myChart");
-
-$option = new Option();
-$option->title(['text' => 'ECharts 入门示例']);
-$option->xAxis(["data" => ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']]);
-$option->yAxis([]);
-
-$chart = new Bar();
-$chart->data = [5, 20, 36, 10, 10, 20];
-$option->addSeries($chart);
-
-$echarts->option($option);
-
-$content = $echarts->render();
-echo $content;
-```
-
-
-
 ## 安装
 ### 使用 Composer 安装 (强烈推荐):
 支持 `psr-4` 规范, 开箱即用
@@ -72,44 +44,63 @@ git clone https://github.com/youyiio/php-airpayee php-airpayee
 
 
 
-## 示例 - Line
+## 扫码枪收款 - scanpay
+
+支付配置config.php
 ```
-$echarts = ECharts::init("#myChart");
+<?php
+ini_set('date.timezone','Asia/Shanghai');
 
-$option = new Option();
-$option->title(['text' => 'ECharts 入门示例']);
-$option->xAxis(["data" => ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']]);
-$option->yAxis([]);
+$config = array (	
+	//商户编号
+	'mch_no' => "",
 
-$chart = new Line();
-$chart["data"] = [5, 20, 36, 10, 10, 20];
-$option->series([$chart]);
+	//商户密钥
+	'secret_key' => "",
+	
+	//异步通知地址
+	'notify_url' => "http://paysdk.airpayee.com/webpay/notify_url.php",
+	
+	//同步跳转
+	'return_url' => "http://paysdk.airpayee.com/webpay/return_url.php",
 
-$echarts->option($option);
-
-$content = $echarts->render();
-echo $content;
+	//编码格式，定值无需修改
+	'charset' => "UTF-8"
+);
 ```
 
-## 示例 - Bar
+支付SDK调用
 ```
-$echarts = ECharts::init("#myChart");
+use beyong\airpayee\PaySdk;
 
-$option = new Option();
-$option->title(['text' => 'ECharts 入门示例']);
-$option->xAxis(["data" => ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']]);
-$option->yAxis([]);
-$option->legend(["data" => ['销量']]); //显示指定的series的标记，对应chart->name
+$body = $_POST['body'];
+$amount = $_POST['amount'];
+$attach = $_POST['attach'];
+$authCode = $_POST['auth_code'];
 
-$chart = new Bar();
-$chart->name = '销量';
-$chart->data = [5, 20, 36, 10, 10, 20];
-$option->addSeries($chart);
+$PaySdk = new PaySdk($config);
+$result = $PaySdk->scanPay($body, $amount, $attach, $authCode);
+var_dump($result);
 
-$echarts->option($option);
+```
 
-$content = $echarts->render();
-echo $content;
+## 网页支付 - webpay
+
+支付SDK调用
+```
+use beyong\airpayee\PaySdk;
+
+$mchOrderId = $_POST['mch_order_id'];
+$body = $_POST['body'];
+$amount = $_POST['amount'];
+$attach = $_POST['attach'];
+$payChannel = $_POST['pay_channel'];
+$returnUrl = $_POST['return_url'];
+$notifyUrl = $_POST['notify_url'];
+
+$PaySdk = new PaySdk($config);
+
+$PaySdk->webPay($mchOrderId, $body, $amount, $attach, $payChannel, $returnUrl, $notifyUrl);
 ```
 
 
@@ -119,4 +110,4 @@ echo $content;
 
 
 ## License
-Apache 2.0
+MIT
