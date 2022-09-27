@@ -56,7 +56,7 @@ require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
         <a class="weui-btn weui-btn_primary" href="./litepay" id="">小程序支付</a>
         <a class="weui-btn weui-btn_primary" href="./h5pay" id="">h5支付</a>
         <a class="weui-btn weui-btn_primary" href="./apppay" id="">移动应用支付</a>
-        <a class="weui-btn weui-btn_primary" href="./orderapi" id="">订单接口</a>
+        <a class="weui-btn weui-btn_primary" href="./orderapi/index.php" id="">订单接口</a>
     </div>
     </form>
 </body>

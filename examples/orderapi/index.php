@@ -1,5 +1,5 @@
 <?php
-/* *
+                                                                                                    /* *
  * 功能：AirPayee订单操作接口接口调试入口页面
  * 版本：1.0
  * 修改日期：2022-05-05
@@ -8,6 +8,8 @@
  */
 
 header("Content-type: text/html; charset=utf-8");
+$baseDir = '../../';
+require($baseDir . 'vendor/autoload.php');
 
 use beyong\airpayee\PaySdk;
 
@@ -171,7 +173,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="pay_product">
-                        <option value="pc">pc</option>
+                        <option value="web">web</option>
                         <option value="h5">h5</option>
                         <option value="app">app</option>
                         <option value="jssdk">jssdk</option>
@@ -287,12 +289,12 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    $.alert("操作成功");
+                    alert("操作成功");
                     $("#form3 input[name=our_order_id]").val(result.our_order_id);
                     $("#form4 input[name=our_order_id]").val(result.our_order_id);
                     $("#form5 input[name=our_order_id]").val(result.our_order_id);
                 } else {
-                    $.alert("操作失败:" + result.error_code + result.error_message);
+                    alert("操作失败:" + result.error_code + result.error_message);
                 }
 
             })
@@ -307,12 +309,12 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    $.alert("操作成功");
+                    alert("操作成功");
                     $("#form3 input[name=our_order_id]").val(result.our_order_id);
                     $("#form4 input[name=our_order_id]").val(result.our_order_id);
                     $("#form5 input[name=our_order_id]").val(result.our_order_id);
                 } else {
-                    $.alert("操作失败:" + result.error_code + result.error_message);
+                    alert("操作失败:" + result.error_code + result.error_message);
                 }
 
             })
@@ -324,9 +326,9 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    $.alert("操作成功:" + data);
+                    alert("操作成功:" + data);
                 } else {
-                    $.alert("操作失败:" + result.error_code + result.error_message);
+                    alert("操作失败:" + result.error_code + result.error_message);
                 }
 
             })
@@ -337,9 +339,9 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    $.alert("操作成功:" + data);
+                    alert("操作成功:" + data);
                 } else {
-                    $.alert("操作失败:" + result.error_code + result.error_message);
+                    alert("操作失败:" + result.error_code + result.error_message);
                 }
 
             })
@@ -351,9 +353,9 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    $.alert("操作成功:" + data);
+                    alert("操作成功:" + data);
                 } else {
-                    $.alert("操作失败:" + result.error_code + result.error_message);
+                    alert("操作失败:" + result.error_code + result.error_message);
                 }
 
             })
