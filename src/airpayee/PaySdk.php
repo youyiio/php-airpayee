@@ -61,9 +61,9 @@ class PaySdk {
     //查询订单method，固定值
     public static $queryorder_method = "airpayee.order.query";
     //取消订单method，固定值
-    public static $cancelorder_method = "airpayee.order.refund";
+    public static $cancelorder_method = "airpayee.order.cancel";
     //退款订单method，固定值
-    public static $refundorder_method = "airpayee.order.cancel";
+    public static $refundorder_method = "airpayee.order.refund";
 
 
     public static $pay_products = ["scan", "web", "app", "pub", "lite", "h5", "qrcode"];
@@ -525,7 +525,6 @@ class PaySdk {
         $response = $this->http->post($this->web_api_url, $params);
         $result = json_decode($response, true);
         //var_dump($result);
-
         return $result;
     }
 

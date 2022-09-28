@@ -1,5 +1,5 @@
 <?php
-                                                                                                    /* *
+/* *
  * 功能：AirPayee订单操作接口接口调试入口页面
  * 版本：1.0
  * 修改日期：2022-05-05
@@ -164,7 +164,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                     <label class="weui-label">附加</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" placeholder="" name="attach" value="">
+                    <input class="weui-input" type="text" placeholder="附加信息" name="attach" value="附加信息">
                 </div>
             </div>
             <div class="weui-cell">
@@ -174,11 +174,11 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="pay_product">
                         <option value="web">web</option>
+                        <option value="pub">pub</option>
+                        <option value="lite">lite</option>
                         <option value="h5">h5</option>
                         <option value="app">app</option>
-                        <option value="jssdk">jssdk</option>
                         <option value="qrcode">qrcode</option>
-                        <option value="oneqrcode">oneqrcode</option>
                     </select>
                 </div>
             </div>
@@ -289,7 +289,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
                 var result = JSON.parse(data);
                 console.log(result);
                 if (result.is_success) {
-                    alert("操作成功");
+                    alert("操作成功!聚合平台订单号:" + result.our_order_id);
                     $("#form3 input[name=our_order_id]").val(result.our_order_id);
                     $("#form4 input[name=our_order_id]").val(result.our_order_id);
                     $("#form5 input[name=our_order_id]").val(result.our_order_id);
@@ -322,6 +322,7 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 
         $("#btnQuery").click(function() {
             var params = $("#form3").serializeObject();
+            console.log(params);
             $.post('./index.php', params, function(data) {
                 var result = JSON.parse(data);
                 console.log(result);
