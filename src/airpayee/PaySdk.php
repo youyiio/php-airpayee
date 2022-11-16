@@ -36,7 +36,7 @@ class PaySdk {
     public $sign_type = "MD5";
 
     //统一的网关接口，定值无需修改
-	public $unify_gateway_url = "https://pay.ituizhan.com/gateway/unify";
+	public $unify_gateway_url = "https://www.airpayee.com/gateway/unify";
 
     //扫码枪支付method, 固定值
     public static $scanpay_method = "airpayee.pay.scanpay";
