@@ -24,10 +24,10 @@ class PaySdk {
     public $secret_key = "";
 
     //异步通知地址
-    public $notify_url = "http://xxx.xx/notify_url.php";
+    public $notify_url = "http://yourdomain/notify_url.php";
 
     //同步跳转
-    public $return_url = "http://xx.xx/paySuccess";
+    public $return_url = "http://yourdomain/return_url.php";
 
     //编码格式
     public $charset = "UTF-8";
@@ -522,14 +522,14 @@ class PaySdk {
         $sign = $this->sign_params($params, $this->secret_key);
         $params['sign'] = $sign;
 
-        $response = $this->http->post($this->web_api_url, $params);
+        $response = $this->http->post($this->unify_gateway_url, $params);
         $result = json_decode($response, true);
         //var_dump($result);
         return $result;
     }
 
 
-        /**
+    /**
      * 验签方法
      * @param $params 验签平台返回的信息，使用支付宝公钥。
      * @return boolean
